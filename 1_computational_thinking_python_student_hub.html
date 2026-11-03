@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computational Thinking & Python — Student Learning Hub</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#fff; --ink:#172033; --muted:#64748b;
+  --primary:#2563eb; --primary2:#4f46e5; --line:#e5e7eb;
+  --soft:#eef4ff; --code:#111827; --green:#059669; --orange:#d97706;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.hero{background:linear-gradient(135deg,#111827,#1d4ed8 58%,#4f46e5);color:#fff;padding:56px 22px 46px}
+.wrap{max-width:1180px;margin:auto}
+.badge{display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);padding:7px 12px;border-radius:999px;font-size:13px}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.08;margin:18px 0 12px;letter-spacing:-1.5px}
+.hero p{max-width:760px;color:#dbeafe;font-size:17px}
+.searchbox{margin-top:25px;display:flex;gap:10px;max-width:760px}
+.searchbox input{flex:1;padding:15px 17px;border-radius:12px;border:0;font-size:16px;outline:none}
+.searchbox button{border:0;border-radius:12px;padding:0 20px;background:#fff;color:#1d4ed8;font-weight:700;cursor:pointer}
+.layout{display:grid;grid-template-columns:250px 1fr;gap:25px;padding:30px 22px}
+.sidebar{position:sticky;top:18px;height:max-content;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.sidebar h3{margin:0 0 10px;font-size:15px}
+.nav a{display:block;padding:9px 10px;border-radius:9px;color:#475569;font-size:14px}
+.nav a:hover{background:var(--soft);color:var(--primary)}
+.main{min-width:0}
+.section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:22px;box-shadow:0 4px 18px rgba(15,23,42,.035)}
+.section-head{display:flex;gap:15px;align-items:flex-start}
+.icon{width:44px;height:44px;display:grid;place-items:center;background:var(--soft);border-radius:12px;font-size:22px;flex:0 0 auto}
+h2{margin:0;font-size:25px}
+h3{margin-top:24px}
+.small{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:18px}
+.card{border:1px solid var(--line);border-radius:14px;padding:17px;background:#fff}
+.card strong{display:block;margin-bottom:5px}
+.visual{margin:20px 0;padding:22px;border-radius:16px;background:#f8fafc;border:1px dashed #cbd5e1}
+.flow{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+.node{padding:12px 16px;background:#fff;border:2px solid #bfdbfe;border-radius:12px;font-weight:700}
+.arrow{font-size:22px;color:var(--primary)}
+.code{background:var(--code);color:#e5e7eb;border-radius:12px;padding:17px;overflow:auto;font:14px/1.6 Consolas,Monaco,monospace;white-space:pre}
+.tip{background:#ecfdf5;border-left:4px solid var(--green);padding:13px 15px;border-radius:8px;margin-top:15px}
+.warn{background:#fff7ed;border-left:4px solid var(--orange);padding:13px 15px;border-radius:8px;margin-top:15px}
+.tag{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:12px;font-weight:700;margin:3px}
+.hide{display:none}
+footer{text-align:center;color:var(--muted);padding:35px 20px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto}.grid{grid-template-columns:1fr}}
+
+/* ===== Enhanced Student Portal UI ===== */
+:root{
+  --primary:#4f46e5; --primary2:#2563eb; --cyan:#06b6d4;
+  --shadow:0 14px 40px rgba(15,23,42,.08);
+}
+body{
+  background:
+    radial-gradient(circle at 10% 5%,rgba(79,70,229,.08),transparent 28%),
+    radial-gradient(circle at 90% 18%,rgba(6,182,212,.07),transparent 25%),
+    #f6f8fc;
+}
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0f172a,#1e3a8a 55%,#4f46e5);
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,255,255,.13);
+  animation:floatOrb 9s ease-in-out infinite;
+}
+.hero:before{width:300px;height:300px;right:-80px;top:-130px}
+.hero:after{width:180px;height:180px;left:45%;bottom:-130px;animation-delay:-3s}
+.hero .wrap{position:relative;z-index:2}
+.badge{animation:fadeDown .7s ease both}
+h1{animation:fadeUp .8s .1s ease both}
+.hero p{animation:fadeUp .8s .2s ease both}
+.searchbox{animation:fadeUp .8s .3s ease both}
+.sidebar{box-shadow:var(--shadow)}
+.nav a{transition:.2s ease;position:relative}
+.nav a:before{content:"";position:absolute;left:0;top:50%;width:3px;height:0;border-radius:5px;background:var(--primary);transition:.2s}
+.nav a:hover:before{height:60%;top:20%}
+.section{
+  box-shadow:var(--shadow);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.section:hover{transform:translateY(-3px);border-color:#dbe4ff;box-shadow:0 18px 48px rgba(15,23,42,.11)}
+.icon{transition:transform .35s ease,background .35s ease}
+.section:hover .icon{transform:rotate(-6deg) scale(1.08);background:#e0e7ff}
+.card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(15,23,42,.08);border-color:#c7d2fe}
+.visual{position:relative;overflow:hidden}
+.visual:after{
+  content:"";position:absolute;inset:-50%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:translateX(-70%) rotate(8deg);animation:shine 5s infinite;
+}
+.flow .node{animation:pulseNode 3.5s ease-in-out infinite}
+.flow .node:nth-child(3){animation-delay:.35s}.flow .node:nth-child(5){animation-delay:.7s}
+.flow .node:nth-child(7){animation-delay:1.05s}.flow .node:nth-child(9){animation-delay:1.4s}
+.arrow{animation:arrowMove 1.2s ease-in-out infinite}
+.code{position:relative;border:1px solid #263248}
+.code:before{content:"PYTHON";position:absolute;right:12px;top:8px;color:#64748b;font:10px/1 Arial,sans-serif;letter-spacing:1px}
+.tag{transition:.2s}.tag:hover{transform:translateY(-2px)}
+.tip,.warn{animation:softPulse 4s ease-in-out infinite}
+.searchbox input:focus{box-shadow:0 0 0 4px rgba(147,197,253,.35)}
+.progress-wrap{
+  position:fixed;left:0;top:0;width:100%;height:4px;z-index:9999;background:transparent
+}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#6366f1,#a855f7);transition:width .1s}
+.top-button{
+  position:fixed;right:20px;bottom:20px;width:44px;height:44px;border:0;border-radius:50%;
+  background:#111827;color:#fff;cursor:pointer;opacity:0;transform:translateY(15px);
+  transition:.25s;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,.2)
+}
+.top-button.show{opacity:1;transform:translateY(0)}
+.topic-actions{display:flex;gap:8px;margin:15px 0 0;flex-wrap:wrap}
+.topic-btn{
+  border:1px solid #dbe4ff;background:#f8faff;color:#3730a3;border-radius:9px;
+  padding:7px 11px;cursor:pointer;font-weight:700;font-size:12px
+}
+.topic-btn:hover{background:#eef2ff}
+.example-panel{display:none;margin-top:12px}
+.example-panel.open{display:block;animation:expand .3s ease both}
+.copy-btn{
+  position:absolute;right:10px;bottom:10px;border:1px solid #475569;background:#1e293b;
+  color:#e2e8f0;border-radius:7px;padding:5px 8px;font-size:11px;cursor:pointer
+}
+.code{position:relative;padding-bottom:42px}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes floatOrb{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,18px)}}
+@keyframes shine{0%,55%{transform:translateX(-70%) rotate(8deg)}75%,100%{transform:translateX(70%) rotate(8deg)}}
+@keyframes pulseNode{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes arrowMove{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@keyframes softPulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 4px rgba(16,185,129,.05)}}
+@keyframes expand{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div><button class="top-button" id="topBtn" aria-label="Back to top">↑</button>
+<header class="hero">
+<div class="wrap">
+<span class="badge">ADVANCED COMPUTATIONAL THINKING USING PYTHON • MODULE 1</span>
+<h1>Advanced Computational Thinking Using Python</h1>
+<p>Module 1 Student Learning Hub — build problem-solving skills, computational thinking habits, and Python programming fundamentals step by step.</p><p style="margin-top:8px;font-weight:700;color:#fff">Latha Murugesan <span style="font-weight:400;color:#bfdbfe">• Technical Trainer</span></p>
+<div class="searchbox">
+<input id="search" type="search" placeholder="Search: loops, functions, abstraction, debugging..." aria-label="Search topics">
+<button onclick="clearSearch()">Clear</button>
+</div>
+<p id="result" class="small" style="color:#bfdbfe;margin:10px 0 0"></p>
+</div>
+</header>
+
+<div class="wrap" style="padding:18px 22px 0">
+  <div class="card" style="display:flex;gap:14px;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#fff,#f8faff)">
+    <div><strong style="font-size:16px">How to use this page</strong><div class="small">Learn the 1–2 line concept → view the example → try it yourself.</div></div>
+    <div style="white-space:nowrap"><span class="tag">LEARN</span><span class="tag">SEE</span><span class="tag">TRY</span></div>
+  </div>
+</div>
+
+<div class="layout wrap">
+<aside class="sidebar">
+<h3>Topics</h3>
+<nav class="nav" id="nav">
+<a href="#intro">01 • Computational Thinking</a>
+<a href="#problem">02 • Problem Solving</a>
+<a href="#decomposition">03 • Decomposition</a>
+<a href="#pattern">04 • Pattern Recognition</a>
+<a href="#abstraction">05 • Abstraction</a>
+<a href="#algorithm">06 • Algorithm Design</a>
+<a href="#flowchart">07 • Flowcharts</a>
+<a href="#environment">08 • Python Environment</a>
+<a href="#variables">09 • Variables & Data Types</a>
+<a href="#io">10 • Input & Output</a>
+<a href="#operators">11 • Operators — All Types</a>
+<a href="#expressions">12 • Expressions</a>
+<a href="#condition">13 • Conditional Statements</a>
+<a href="#loops">14 • Looping Constructs</a>
+<a href="#functions">15 • Functions & Parameters</a>
+<a href="#debugging">16 • Debugging</a>
+<a href="#standards">17 • Coding Standards</a>
+</nav>
+</aside>
+
+<main class="main">
+
+<section class="section topic" id="intro" data-keywords="computational thinking introduction decomposition pattern recognition abstraction algorithm">
+<div class="section-head"><div class="icon">🧠</div><div><h2>01. Introduction to Computational Thinking</h2><p class="small">A structured way of thinking about problems so that a computer can help solve them.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">Understand</div><div class="arrow">→</div><div class="node">Break Down</div><div class="arrow">→</div><div class="node">Find Patterns</div><div class="arrow">→</div><div class="node">Design Steps</div><div class="arrow">→</div><div class="node">Code</div></div></div>
+<div class="grid"><div class="card"><strong>Example</strong>Planning a college event: identify tasks → arrange people → schedule activities → execute.</div><div class="card"><strong>Core idea</strong>Computational thinking is about the <b>process of solving</b>, not just writing code.</div></div>
+</section>
+
+<section class="section topic" id="problem" data-keywords="problem solving methodology solution steps">
+<div class="section-head"><div class="icon">🧩</div><div><h2>02. Problem-Solving Methodologies</h2><p class="small">Use a repeatable process instead of immediately jumping into code.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">Problem</div><div class="arrow">→</div><div class="node">Analyze</div><div class="arrow">→</div><div class="node">Plan</div><div class="arrow">→</div><div class="node">Implement</div><div class="arrow">→</div><div class="node">Test</div></div></div>
+<div class="tip"><b>Student habit:</b> Before coding, write what goes in, what should happen, and what should come out.</div>
+</section>
+
+<section class="section topic" id="decomposition" data-keywords="decomposition break problem smaller parts">
+<div class="section-head"><div class="icon">🧱</div><div><h2>03. Decomposition</h2><p class="small">Break one large problem into smaller, manageable problems.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">College App</div><div class="arrow">→</div><div class="node">Login</div><div class="node">→</div><div class="node">Attendance</div><div class="node">→</div><div class="node">Marks</div></div></div>
+<div class="card"><strong>Example</strong> Instead of “build a student system”, divide it into login, student details, attendance, marks and report generation.</div>
+</section>
+
+<section class="section topic" id="pattern" data-keywords="pattern recognition patterns similarities">
+<div class="section-head"><div class="icon">🔎</div><div><h2>04. Pattern Recognition</h2><p class="small">Look for similarities, repetition and rules that appear across problems.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">2, 4, 6</div><div class="arrow">→</div><div class="node">8, 10, 12</div><div class="arrow">→</div><div class="node">Pattern: +2</div></div></div>
+<div class="card"><strong>Programming example</strong> If many tasks require “get input → process → display result”, the same structure can be reused.</div>
+</section>
+
+<section class="section topic" id="abstraction" data-keywords="abstraction hide details essential information">
+<div class="section-head"><div class="icon">🎯</div><div><h2>05. Abstraction</h2><p class="small">Focus on important information and hide unnecessary implementation details.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">Car</div><div class="arrow">→</div><div class="node">Steering</div><div class="node">Brakes</div><div class="node">Accelerator</div></div><p class="small" style="text-align:center">You can drive a car without knowing every engine component.</p></div>
+<div class="card"><strong>Python connection</strong> Calling <code>print()</code> hides the internal details of how text is displayed.</div>
+</section>
+
+<section class="section topic" id="algorithm" data-keywords="algorithm design steps pseudocode">
+<div class="section-head"><div class="icon">📋</div><div><h2>06. Algorithm Design</h2><p class="small">An algorithm is a finite, ordered set of steps for solving a problem.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">Input</div><div class="arrow">→</div><div class="node">Step 1</div><div class="arrow">→</div><div class="node">Step 2</div><div class="arrow">→</div><div class="node">Output</div></div></div>
+<div class="card"><strong>Example: Find area of a rectangle</strong><br>1. Read length<br>2. Read width<br>3. Calculate length × width<br>4. Display area</div>
+</section>
+
+<section class="section topic" id="flowchart" data-keywords="flowchart symbols algorithm decision process">
+<div class="section-head"><div class="icon">🔀</div><div><h2>07. Algorithms & Flowcharts</h2><p class="small">Flowcharts visually represent the sequence and decisions in an algorithm.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="visual"><div class="flow"><div class="node">Start</div><div class="arrow">↓</div><div class="node">Input mark</div><div class="arrow">↓</div><div class="node">Mark ≥ 50?</div><div class="arrow">→</div><div class="node">Pass / Fail</div></div></div>
+<div class="grid"><div class="card"><span class="tag">Oval</span> Start / End</div><div class="card"><span class="tag">Rectangle</span> Process</div><div class="card"><span class="tag">Diamond</span> Decision</div><div class="card"><span class="tag">Parallelogram</span> Input / Output</div></div>
+</section>
+
+<section class="section topic" id="environment" data-keywords="python environment interpreter jupyter vscode idle">
+<div class="section-head"><div class="icon">🐍</div><div><h2>08. Python Programming Environment</h2><p class="small">A programming environment is where you write, run and test Python programs.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="grid"><div class="card"><strong>Jupyter Notebook</strong>Great for learning, experiments and step-by-step execution.</div><div class="card"><strong>VS Code</strong>A powerful editor for projects, debugging and development.</div></div>
+<div class="code">print("Hello, Python!")</div>
+</section>
+
+<section class="section topic" id="variables" data-keywords="variables data types int float string boolean list">
+<div class="section-head"><div class="icon">📦</div><div><h2>09. Variables & Data Types</h2><p class="small">Variables store values. The data type describes what kind of value is stored.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="code">name = "Anu"       # str
+age = 20           # int
+mark = 87.5        # float
+passed = True      # bool</div>
+<div class="grid"><div class="card"><strong>Common types</strong>int, float, str, bool</div><div class="card"><strong>Think of a variable as</strong>A labelled box that holds a value.</div></div>
+</section>
+
+<section class="section topic" id="io" data-keywords="input output print input function sep end formatting f-string escape characters">
+<div class="section-head"><div class="icon">⌨️</div><div><h2>10. Input & Output Statements</h2><p class="small">Learn the different ways Python receives data and displays results.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+
+<h3>Output — <code>print()</code></h3>
+<div class="grid">
+<div class="card"><strong>1. Print text</strong><div class="code">print("Hello World")</div></div>
+<div class="card"><strong>2. Print numbers</strong><div class="code">print(10)
+print(10.5)
+print(True)</div></div>
+<div class="card"><strong>3. Print variables</strong><div class="code">name = "Anu"
+mark = 85
+print(name)
+print(mark)</div></div>
+<div class="card"><strong>4. Print multiple values</strong><div class="code">name = "Anu"
+age = 20
+print(name, age)</div></div>
+<div class="card"><strong>5. <code>sep</code> parameter</strong><div class="code">print("2026", "09", "26", sep="-")
+# 2026-09-26</div></div>
+<div class="card"><strong>6. <code>end</code> parameter</strong><div class="code">print("Hello", end=" ")
+print("World")
+# Hello World</div></div>
+<div class="card"><strong>7. String concatenation</strong><div class="code">name = "Anu"
+print("Hello " + name)</div></div>
+<div class="card"><strong>8. f-string</strong><div class="code">name = "Anu"
+mark = 85
+print(f"{name} scored {mark}")</div></div>
+<div class="card"><strong>9. Number formatting</strong><div class="code">price = 1250.5678
+print(f"{price:.2f}")
+# 1250.57</div></div>
+<div class="card"><strong>10. Expressions inside print</strong><div class="code">a = 10
+b = 20
+print(a + b)
+print(a &gt; b)</div></div>
+<div class="card"><strong>11. Escape characters</strong><div class="code">print("Hello\nWorld")
+print("Hello\tWorld")
+print("He said \"Python\"")</div></div>
+<div class="card"><strong>12. Useful escape sequences</strong><p><code>\n</code> new line &nbsp; <code>\t</code> tab &nbsp; <code>\\</code> backslash &nbsp; <code>\"</code> quote &nbsp; <code>\'</code> quote</p></div>
+</div>
+
+<h3>Input — <code>input()</code></h3>
+<div class="code">name = input("Enter your name: ")
+print("Welcome", name)</div>
+
+<div class="grid">
+<div class="card"><strong>String input</strong><div class="code">name = input("Name: ")</div></div>
+<div class="card"><strong>Integer input</strong><div class="code">age = int(input("Age: "))</div></div>
+<div class="card"><strong>Float input</strong><div class="code">mark = float(input("Mark: "))</div></div>
+<div class="card"><strong>Multiple inputs</strong><div class="code">a, b = map(int, input().split())</div></div>
+</div>
+
+<div class="tip"><b>Remember:</b> <code>input()</code> returns a string. Use <code>int()</code> or <code>float()</code> when numeric input is required.</div>
+</section>
+
+<section class="section topic" id="operators" data-keywords="operators arithmetic comparison relational assignment logical identity membership bitwise expressions plus minus multiplication division floor modulus exponent">
+<div class="section-head"><div class="icon">➗</div><div><h2>11. Operators — All Major Types</h2><p class="small">Operators perform calculations, comparisons, assignments and logical or bit-level operations.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+
+<div class="card"><strong>Operator map</strong><p>
+<span class="tag">Arithmetic</span>
+<span class="tag">Comparison</span>
+<span class="tag">Assignment</span>
+<span class="tag">Logical</span>
+<span class="tag">Identity</span>
+<span class="tag">Membership</span>
+<span class="tag">Bitwise</span>
+</p></div>
+
+<h3>1. Arithmetic Operators</h3>
+<div class="grid">
+<div class="card"><strong><code>+</code> Addition</strong><div class="code">10 + 3  # 13</div></div>
+<div class="card"><strong><code>-</code> Subtraction</strong><div class="code">10 - 3  # 7</div></div>
+<div class="card"><strong><code>*</code> Multiplication</strong><div class="code">10 * 3  # 30</div></div>
+<div class="card"><strong><code>/</code> Division</strong><div class="code">10 / 3  # 3.333...</div></div>
+<div class="card"><strong><code>//</code> Floor division</strong><div class="code">10 // 3  # 3</div></div>
+<div class="card"><strong><code>%</code> Modulus</strong><div class="code">10 % 3  # 1</div></div>
+<div class="card"><strong><code>**</code> Exponent</strong><div class="code">10 ** 3  # 1000</div></div>
+</div>
+
+<h3>2. Comparison / Relational Operators</h3>
+<div class="code">a = 10
+b = 20
+
+print(a == b)   # Equal
+print(a != b)   # Not equal
+print(a &gt; b)    # Greater than
+print(a &lt; b)    # Less than
+print(a &gt;= b)   # Greater than or equal
+print(a &lt;= b)   # Less than or equal</div>
+
+<h3>3. Assignment Operators</h3>
+<div class="grid">
+<div class="card"><strong>Basic</strong><div class="code">x = 10</div></div>
+<div class="card"><strong>Add and assign</strong><div class="code">x += 5</div></div>
+<div class="card"><strong>Subtract and assign</strong><div class="code">x -= 5</div></div>
+<div class="card"><strong>Multiply and assign</strong><div class="code">x *= 5</div></div>
+<div class="card"><strong>Divide and assign</strong><div class="code">x /= 5</div></div>
+<div class="card"><strong>Floor divide</strong><div class="code">x //= 5</div></div>
+<div class="card"><strong>Modulus assign</strong><div class="code">x %= 5</div></div>
+<div class="card"><strong>Exponent assign</strong><div class="code">x **= 2</div></div>
+<div class="card"><strong>Bitwise assignment</strong><div class="code">x &= 3
+x |= 3
+x ^= 3
+x &lt;&lt;= 1
+x &gt;&gt;= 1</div></div>
+</div>
+
+<h3>4. Logical Operators</h3>
+<div class="code">age = 20
+mark = 75
+
+print(age &gt;= 18 and mark &gt;= 50)
+print(age &gt;= 18 or mark &gt;= 90)
+print(not(age &gt;= 18))</div>
+<div class="grid">
+<div class="card"><strong><code>and</code></strong>True when both conditions are true.</div>
+<div class="card"><strong><code>or</code></strong>True when at least one condition is true.</div>
+<div class="card"><strong><code>not</code></strong>Reverses a Boolean result.</div>
+</div>
+
+<h3>5. Identity Operators</h3>
+<div class="code">a = [1, 2]
+b = a
+c = [1, 2]
+
+print(a is b)       # True
+print(a is c)       # False
+print(a is not c)   # True</div>
+<div class="tip"><b>Important:</b> <code>is</code> checks object identity. <code>==</code> checks whether values are equal.</div>
+
+<h3>6. Membership Operators</h3>
+<div class="code">name = "Latha"
+
+print("a" in name)       # True
+print("z" in name)       # False
+print("z" not in name)   # True</div>
+
+<h3>7. Bitwise Operators</h3>
+<div class="visual">
+<div class="flow"><div class="node">5 → 0101</div><div class="arrow">+</div><div class="node">3 → 0011</div><div class="arrow">→</div><div class="node">Binary operation</div></div>
+</div>
+<div class="grid">
+<div class="card"><strong><code>&amp;</code> AND</strong><div class="code">5 &amp; 3   # 1</div></div>
+<div class="card"><strong><code>|</code> OR</strong><div class="code">5 | 3   # 7</div></div>
+<div class="card"><strong><code>^</code> XOR</strong><div class="code">5 ^ 3   # 6</div></div>
+<div class="card"><strong><code>~</code> NOT</strong><div class="code">~5      # -6</div></div>
+<div class="card"><strong><code>&lt;&lt;</code> Left shift</strong><div class="code">5 &lt;&lt; 1  # 10</div></div>
+<div class="card"><strong><code>&gt;&gt;</code> Right shift</strong><div class="code">5 &gt;&gt; 1  # 2</div></div>
+</div>
+
+<div class="tip"><b>Practice:</b> Predict the output before running each operator example. Then verify it in Python.</div>
+</section>
+
+<section class="section topic" id="expressions" data-keywords="expressions arithmetic boolean comparison mixed operator precedence">
+<div class="section-head"><div class="icon">🧮</div><div><h2>12. Expressions</h2><p class="small">An expression combines values, variables and operators to produce a result.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="grid">
+<div class="card"><strong>Arithmetic expression</strong><div class="code">total = price * quantity</div></div>
+<div class="card"><strong>Comparison expression</strong><div class="code">mark &gt;= 50</div></div>
+<div class="card"><strong>Boolean expression</strong><div class="code">age &gt;= 18 and citizen</div></div>
+<div class="card"><strong>Mixed expression</strong><div class="code">result = (a + b) * c</div></div>
+</div>
+<h3>Operator Precedence</h3>
+<div class="visual"><div class="flow"><div class="node">()</div><div class="arrow">→</div><div class="node">**</div><div class="arrow">→</div><div class="node">* / // %</div><div class="arrow">→</div><div class="node">+ −</div><div class="arrow">→</div><div class="node">Comparisons</div><div class="arrow">→</div><div class="node">not → and → or</div></div></div>
+<div class="code">result = 10 + 2 * 3
+print(result)       # 16
+
+result = (10 + 2) * 3
+print(result)       # 36</div>
+<div class="tip"><b>Best practice:</b> Use parentheses when they make the intended order clearer.</div>
+</section>
+
+<section class="section topic" id="condition" data-keywords="if else elif nested if conditional statements multiple conditions and or not ternary">
+<div class="section-head"><div class="icon">🚦</div><div><h2>13. Conditional Statements</h2><p class="small">Conditions allow a program to make decisions.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<h3>1. <code>if</code></h3><div class="code">mark = 75
+if mark &gt;= 50:
+    print("Pass")</div>
+<h3>2. <code>if-else</code></h3><div class="code">age = 20
+if age &gt;= 18:
+    print("Adult")
+else:
+    print("Minor")</div>
+<h3>3. <code>if-elif-else</code></h3><div class="code">mark = 82
+if mark &gt;= 90:
+    grade = "A+"
+elif mark &gt;= 75:
+    grade = "A"
+elif mark &gt;= 50:
+    grade = "B"
+else:
+    grade = "F"
+print(grade)</div>
+<h3>4. Nested <code>if</code></h3><div class="code">age = 20
+citizen = True
+if age &gt;= 18:
+    if citizen:
+        print("Eligible")</div>
+<h3>5. Compound conditions</h3><div class="code">age = 25
+salary = 30000
+
+if age &gt;= 21 and salary &gt;= 25000:
+    print("Eligible")
+
+if age &lt; 18 or salary &lt; 15000:
+    print("Check criteria")
+
+if not(age &lt; 18):
+    print("Adult")</div>
+<h3>6. Ternary / Conditional Expression</h3><div class="code">mark = 65
+result = "Pass" if mark &gt;= 50 else "Fail"
+print(result)</div>
+<div class="tip"><b>Real-world practice:</b> Build decisions for student grades, login validation, voting-age checks, electricity billing and ticket pricing.</div>
+</section>
+
+<section class="section topic" id="loops" data-keywords="loops for while range nested break continue pass iteration">
+<div class="section-head"><div class="icon">🔁</div><div><h2>14. Looping Constructs</h2><p class="small">Loops repeat a block of code.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<h3>1. <code>for</code> loop</h3><div class="code">for i in range(1, 6):
+    print(i)</div>
+<h3>2. <code>for</code> over a string</h3><div class="code">for ch in "PYTHON":
+    print(ch)</div>
+<h3>3. <code>for</code> over a list</h3><div class="code">names = ["Anu", "Bala", "Cathy"]
+for name in names:
+    print(name)</div>
+<h3>4. <code>while</code> loop</h3><div class="code">count = 1
+while count &lt;= 5:
+    print(count)
+    count += 1</div>
+<h3>5. Nested loops</h3><div class="code">for row in range(1, 4):
+    for col in range(1, 4):
+        print(row, col)</div>
+<h3>6. <code>break</code></h3><div class="code">for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)</div>
+<h3>7. <code>continue</code></h3><div class="code">for i in range(1, 6):
+    if i == 3:
+        continue
+    print(i)</div>
+<h3>8. <code>pass</code></h3><div class="code">for i in range(3):
+    pass</div>
+<div class="grid"><div class="card"><strong><code>range()</code></strong><code>range(stop)</code>, <code>range(start, stop)</code>, <code>range(start, stop, step)</code></div><div class="card"><strong>Loop control</strong><code>break</code> stops; <code>continue</code> skips; <code>pass</code> does nothing.</div></div>
+</section>
+
+<section class="section topic" id="functions" data-keywords="functions built-in user-defined parameters arguments default keyword positional return lambda scope">
+<div class="section-head"><div class="icon">⚙️</div><div><h2>15. Functions & Parameter Passing</h2><p class="small">Functions make programs reusable, organized and easier to test.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<h3>1. Built-in functions</h3><div class="code">print("Hello")
+name = len("Python")
+number = int("25")
+print(name, number)</div>
+<h3>2. User-defined function</h3><div class="code">def greet():
+    print("Welcome")
+
+greet()</div>
+<h3>3. Function with parameters</h3><div class="code">def add(a, b):
+    return a + b
+
+print(add(10, 20))</div>
+<h3>4. Positional arguments</h3><div class="code">def student(name, age):
+    print(name, age)
+
+student("Anu", 20)</div>
+<h3>5. Keyword arguments</h3><div class="code">student(age=20, name="Anu")</div>
+<h3>6. Default parameter</h3><div class="code">def greet(name="Student"):
+    print("Hello", name)
+
+greet()
+greet("Anu")</div>
+<h3>7. Multiple return values</h3><div class="code">def calculate(a, b):
+    return a + b, a * b
+
+total, product = calculate(5, 4)</div>
+<h3>8. Variable-length arguments</h3><div class="code">def total(*numbers):
+    return sum(numbers)
+
+print(total(10, 20, 30))</div>
+<div class="tip"><b>Key distinction:</b> A parameter appears in the function definition; an argument is the value supplied during the function call.</div>
+</section>
+
+<section class="section topic" id="debugging" data-keywords="debugging errors syntax runtime logical traceback print debugging testing">
+<div class="section-head"><div class="icon">🐞</div><div><h2>16. Basic Debugging Techniques</h2><p class="small">Debugging is the systematic process of finding and fixing program errors.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="grid">
+<div class="card"><strong>Syntax error</strong>Python cannot understand the program structure.<div class="code">if x &gt; 5
+    print(x)</div></div>
+<div class="card"><strong>Runtime error</strong>An error occurs while the program runs.<div class="code">x = 10 / 0</div></div>
+<div class="card"><strong>Logical error</strong>The program runs but gives the wrong answer.<div class="code"># Intended: area = length * width
+area = length + width</div></div>
+<div class="card"><strong>Name / Type errors</strong>Common examples include using an undefined variable or incompatible data types.</div>
+</div>
+<h3>Debugging workflow</h3>
+<div class="visual"><div class="flow"><div class="node">Reproduce</div><div class="arrow">→</div><div class="node">Read Error</div><div class="arrow">→</div><div class="node">Locate</div><div class="arrow">→</div><div class="node">Fix</div><div class="arrow">→</div><div class="node">Retest</div></div></div>
+<h3>Useful techniques</h3>
+<div class="grid"><div class="card"><strong>Read traceback</strong>Start from the last line and inspect the reported location.</div><div class="card"><strong>Print debugging</strong>Display intermediate values to understand what is happening.</div><div class="card"><strong>Test small pieces</strong>Isolate one function or block at a time.</div><div class="card"><strong>Use meaningful names</strong>Clear names make logical problems easier to find.</div></div>
+</section>
+
+<section class="section topic" id="standards" data-keywords="coding standards best practices naming comments indentation pep8 clean code">
+<div class="section-head"><div class="icon">✨</div><div><h2>17. Coding Standards & Best Practices</h2><p class="small">Write code that is readable, consistent and easy for others to maintain.</p></div></div><div class="topic-actions"><button class="topic-btn" onclick="toggleExamples(this)">Show / Hide Examples</button></div>
+<div class="grid"><div class="card"><strong>Use meaningful names</strong><code>student_count</code> is clearer than <code>x</code>.</div><div class="card"><strong>Indent consistently</strong>Python uses indentation to define blocks.</div><div class="card"><strong>Keep functions focused</strong>One function should have a clear responsibility.</div><div class="card"><strong>Comment when useful</strong>Explain why something is done, not obvious syntax.</div></div>
+<div class="code"># Good
+average_mark = total_mark / subject_count
+
+# Avoid
+x = a / b</div>
+<div class="tip"><b>Student challenge:</b> Pick one program you wrote earlier and improve its names, structure and readability.</div>
+</section>
+
+</main>
+</div>
+<footer><b>Advanced Computational Thinking Using Python — Module 1</b><br>Latha Murugesan • Technical Trainer<br><span style="font-size:13px">Learn the concept → See the example → Try it yourself</span></footer>
+
+<script>
+const search = document.getElementById('search');
+const topics = [...document.querySelectorAll('.topic')];
+const result = document.getElementById('result');
+
+function filterTopics(){
+  const q = search.value.trim().toLowerCase();
+  let shown = 0;
+  topics.forEach(t=>{
+    const text = (t.innerText + " " + (t.dataset.keywords || "")).toLowerCase();
+    const match = !q || text.includes(q);
+    t.classList.toggle('hide', !match);
+    if(match) shown++;
+  });
+  result.textContent = q ? `${shown} topic${shown===1?'':'s'} found for “${q}”` : '';
+}
+function clearSearch(){ search.value=''; filterTopics(); search.focus(); }
+search.addEventListener('input', filterTopics);
+
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target){ target.classList.remove('hide'); }
+  });
+});
+</script>
+
+<script>
+function toggleExamples(btn){
+  const section = btn.closest('.section');
+  const items = section.querySelectorAll('.visual, .code, .grid, .tip, .warn, h3');
+  const currentlyHidden = section.dataset.examplesHidden !== "false";
+  items.forEach((el,i)=>{
+    if(el.classList.contains('section-head') || el.classList.contains('topic-actions')) return;
+    el.style.display = currentlyHidden ? '' : 'none';
+  });
+  section.dataset.examplesHidden = currentlyHidden ? "false" : "true";
+  btn.textContent = currentlyHidden ? "Hide Examples" : "Show / Hide Examples";
+}
+document.querySelectorAll('.section').forEach(section=>{
+  section.dataset.examplesHidden="false";
+});
+
+/* Copy buttons for every Python code block */
+document.querySelectorAll('.code').forEach(block=>{
+  const btn=document.createElement('button');
+  btn.className='copy-btn'; btn.textContent='Copy';
+  btn.onclick=async ()=>{
+    try{
+      await navigator.clipboard.writeText(block.innerText.replace(/^PYTHON\s*/,'').trim());
+      btn.textContent='Copied!';
+      setTimeout(()=>btn.textContent='Copy',1200);
+    }catch(e){btn.textContent='Select & copy';}
+  };
+  block.appendChild(btn);
+});
+
+/* Reading progress + back-to-top */
+const bar=document.getElementById('progressBar'), topBtn=document.getElementById('topBtn');
+function updateProgress(){
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  const pct=max>0?(window.scrollY/max)*100:0;
+  bar.style.width=pct+'%';
+  topBtn.classList.toggle('show',window.scrollY>500);
+}
+window.addEventListener('scroll',updateProgress,{passive:true});
+topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+updateProgress();
+
+/* Reveal sections gently as they enter the viewport */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.animate(
+        [{opacity:.35,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],
+        {duration:500,easing:'ease-out',fill:'both'}
+      );
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.08});
+document.querySelectorAll('.section').forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>
